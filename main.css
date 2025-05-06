@@ -165,6 +165,67 @@ header.fade-out {
   gap: 8px;
 }
 
+.gradient-text {
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+
+.animated-gradient-text {
+  background: linear-gradient(270deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+  background-size: 600% 600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: gradientMove 4s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+/* Botón animado con los mismos colores */
+.btn-buy {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(270deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+  background-size: 600% 600%;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  animation: gradientMove 5s ease infinite, pulseShadow 2s infinite;
+  transition: transform 0.3s ease;
+}
+
+.btn-buy:hover {
+  transform: scale(1.05);
+}
+
+.btn-icon {
+  color: white;
+}
+
+/* Animaciones */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+
 .btn-buy:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 16px rgba(74, 107, 255, 0.3);
