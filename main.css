@@ -492,3 +492,148 @@ footer {
   margin-left: 25px; /* Ajusta la sangría si es necesario */
   font-size: 1rem;
 }
+
+
+/* pop up de ayuda en campo de texto*/
+
+.help-button {
+  background: linear-gradient(270deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+  background-size: 600% 600%;
+  animation: gradientMove 5s ease infinite;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 5px;
+  padding: 2px 8px;
+  border-radius: 50%;
+  font-size: 16px;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #222;
+  padding: 20px;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.popup img {
+  max-width: 300px;
+  border-radius: 10px;
+}
+
+.popup-close {
+  margin-top: 10px;
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* style que estaba al inicio */
+
+.popupBUY {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popupBUY.hidden {
+  display: none;
+}
+
+.popup-contentBUY {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+}
+
+.closeBUY {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #888;
+}
+
+.closeBUY:hover {
+  color: #000;
+}
+
+/* Estilo para el tooltip */
+.tooltip {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  z-index: 100;
+  font-size: 14px;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.popup {
+  display: none;
+  position: fixed; /* Asegura que el pop-up se muestre sobre el contenido */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centra el pop-up */
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 9999; /* Asegura que esté sobre otros elementos */
+  text-align: center;
+}
+
+.popup img {
+  max-width: 100%;
+  height: auto;
+}
+
+.popup-close {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.popup img {
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.3s ease; /* Transición suave para el cambio de tamaño */
+}
+
+.popup img.zoomed {
+  transform: scale(1.5); /* Aumenta el tamaño al 150% */
+}

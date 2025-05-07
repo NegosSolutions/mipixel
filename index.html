@@ -7,62 +7,6 @@
   <link rel="stylesheet" href="main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css">
-  <link rel="icon" href="logo.png">
-  <style>
-    .popupBUY {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .popupBUY.hidden {
-      display: none;
-    }
-
-    .popup-contentBUY {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 500px;
-      width: 100%;
-      position: relative;
-    }
-
-    .closeBUY {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 24px;
-      cursor: pointer;
-      color: #888;
-    }
-
-    .closeBUY:hover {
-      color: #000;
-    }
-    
-    /* Estilo para el tooltip */
-    .tooltip {
-      position: fixed;
-      background-color: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 4px;
-      z-index: 100;
-      font-size: 14px;
-      pointer-events: none;
-      transition: opacity 0.3s;
-      max-width: 250px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
-  </style>
 </head>
 <body>
   <header>
@@ -88,20 +32,68 @@
     </div>
   </div>
 
-  <!-- Pop-up de compra -->
-  <div id="popupBUY" class="popupBUY hidden">
-    <div class="popup-contentBUY">
-      <span class="closeBUY">&times;</span>
-      <div class="containerBUY">
-        <p style="color: white;">Solicitar Pixel</p>
-  
-        <!-- Formulario-->
-        <form action="https://formspree.io/f/mgvozdrl" method="POST" class="wrapperBUY">
+<!-- POPUP DE COMPRA -->
+<div id="popupBUY" class="popupBUY hidden">
+  <div class="popup-contentBUY">
+    <span class="closeBUY">&times;</span>
+    <div class="containerBUY">
+      <p style="color: white;">Comprar Pixel</p>
+
+      <!-- FORMULARIO DIVIDIDO EN DOS PASOS -->
+      <form action="https://formspree.io/f/mgvozdrl" method="POST" class="wrapperBUY">
+        
+        <!-- PASO 1 -->
+        <div id="form-step-1">
           <label class="titleBUY" for="email" style="color: white;">Correo electrónico</label>
           <div class="input-boxBUY">
             <input type="email" id="email" name="email" required placeholder="tucorreo@example.com" style="color: gray;">
           </div>
-        
+
+          <div style="display: flex; gap: 10px;">
+            <div>
+              <label class="titleBUY" for="altura" style="color: white; text-align: center;">Altura</label>
+              <input type="number" id="altura" name="altura" value="1" style="color: gray;" oninput="calcularPrecio()">
+            </div>
+            <div>
+              <label class="titleBUY" for="largo" style="color: white; text-align: center;">Largo</label>
+              <input type="number" id="largo" name="largo" value="1" style="color: gray;" oninput="calcularPrecio()">
+            </div>
+          </div>
+          <p id="resultado" style="color: white; margin-top: 10px; text-align: center;"></p>
+
+          <button type="button" class="generate-btnBUY" onclick="siguientePaso()">Siguiente</button>
+        </div>
+
+        <!-- PASO 2 (INICIALMENTE OCULTO) -->
+        <div id="form-step-2" style="display: none;">
+          <!-- Link de pixel -->
+          <label class="titleBUY" for="url" style="color:white;">
+            Link de pixel
+            <button type="button" class="help-button" onclick="mostrarPopup('popup1')">?</button>
+          </label>
+          <div class="input-boxBUY">
+            <input type="url" id="url" name="url" required placeholder="http://www.example.com" style="color: grey;">
+          </div>
+
+          <!-- Url imagen -->
+          <label class="titleBUY" for="img" style="color:white;">
+            Url de imagen
+            <button type="button" class="help-button" onclick="mostrarPopup('popup2')">?</button>
+          </label>
+          <div class="input-boxBUY">
+            <input type="url" id="img" name="img" required placeholder="http://www.example.com/imagen1.jpg" style="color: grey;">
+          </div>
+
+          <!-- Título -->
+          <label class="titleBUY" for="text" style="color:white;">
+            Título de pixel
+            <button type="button" class="help-button" onclick="mostrarPopup('popup3')">?</button>
+          </label>
+          <div class="input-boxBUY">
+            <input type="text" id="text" name="text" required placeholder="Pixel 1" style="color: grey;">
+          </div>
+
+          <!-- Opciones -->
           <div class="pass-settingsBUY">
             <label class="titleBUY" style="color: white;">Configuración de pixel</label>
             <ul class="optionsBUY">
@@ -119,11 +111,67 @@
               </li>
             </ul>
           </div>
-          <button type="submit" class="generate-btnBUY">Enviar Solicitud</button>
-        </form>
-      </div>
+
+          <!-- Botones -->
+          <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+            <button type="button" class="generate-btnBUY" onclick="volverPaso()">Volver</button>
+            <button type="submit" class="generate-btnBUY">Realizar pago</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
+</div>
+
+<!-- POPUPS DE AYUDA -->
+<div id="popup1" class="popup">
+  <img src="https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif" alt="Ayuda URL de Pixel"><br>
+  <button class="popup-close" onclick="cerrarPopup('popup1')">Cerrar</button>
+</div>
+
+<div id="popup2" class="popup">
+  <img src="https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif" alt="Ayuda Imagen"><br>
+  <button class="popup-close" onclick="cerrarPopup('popup2')">Cerrar</button>
+</div>
+
+<div id="popup3" class="popup">
+  <img src="https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif" alt="Ayuda Título"><br>
+  <button class="popup-close" onclick="cerrarPopup('popup3')">Cerrar</button>
+</div>
+
+  <script>
+  function calcularPrecio() {
+    const altura = parseFloat(document.getElementById("altura").value);
+    const largo = parseFloat(document.getElementById("largo").value);
+    const resultado = document.getElementById("resultado");
+    if (!isNaN(altura) && !isNaN(largo)) {
+      const total = altura * largo;
+      resultado.textContent = `$${total}`;
+    } else {
+      resultado.textContent = "";
+    }
+  }
+
+  function mostrarPopup(id) {
+    document.getElementById(id).style.display = 'block';
+  }
+
+  function cerrarPopup(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+
+  function siguientePaso() {
+    document.getElementById("form-step-1").style.display = "none";
+    document.getElementById("form-step-2").style.display = "block";
+  }
+
+  function volverPaso() {
+    document.getElementById("form-step-1").style.display = "block";
+    document.getElementById("form-step-2").style.display = "none";
+  }
+
+  window.addEventListener('DOMContentLoaded', calcularPrecio);
+  </script>
 
   <!-- Pop-up FREE -->
 <div id="popupFREE" class="popupBUY hidden">
@@ -136,18 +184,66 @@
         <div class="input-boxBUY">
           <input type="email" id="email" name="email" required placeholder="Tu correo NO se publicará" style="color: grey">
         </div>
-        <label class="titleBUY" for="url" style="color:white;">Url de pixel</label>
+        
+        <!-- Campo 1: URL de Pixel -->
+        <label class="titleBUY" for="url" style="color:white;">
+          Link de pixel
+          <button type="button" class="help-button" onclick="mostrarPopup('popup1')">?</button>
+        </label>
         <div class="input-boxBUY">
           <input type="url" id="url" name="url" required placeholder="http://www.example.com" style="color: grey;">
         </div>
-        <label class="titleBUY" for="text" style="color:white;">Link de imagen</label>
+        
+        <!-- Campo 2: Link de Imagen -->
+        <label class="titleBUY" for="img" style="color:white;">
+          Url de imagen
+          <button type="button" class="help-button" onclick="mostrarPopup('popup2')">?</button>
+        </label>
         <div class="input-boxBUY">
-          <input type="img" id="img" name="img" required placeholder="http://www.example.com/imagen1.jpg" style="color: grey;">
+          <input type="url" id="img" name="img" required placeholder="http://www.example.com/imagen1.jpg" style="color: grey;">
         </div>
-        <label class="titleBUY" for="text" style="color:white;">Titulo de pixel</label>
+        
+        <!-- Campo 3: Título de Pixel -->
+        <label class="titleBUY" for="text" style="color:white;">
+          Título de pixel
+          <button type="button" class="help-button" onclick="mostrarPopup('popup3')">?</button>
+        </label>
         <div class="input-boxBUY">
           <input type="text" id="text" name="text" required placeholder="Pixel 1" style="color: grey;">
         </div>
+        
+        <!-- Popups -->
+        <div id="popup1" class="popup">
+          <img src="https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif" alt="Ayuda URL de Pixel" onclick="toggleZoom('popup1')"><br>
+          <button class="popup-close" onclick="cerrarPopup('popup1')">Cerrar</button>
+        </div>
+        
+        <div id="popup2" class="popup">
+          <img src="https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif" alt="Ayuda Imagen" onclick="toggleZoom('popup2')"><br>
+          <button class="popup-close" onclick="cerrarPopup('popup2')">Cerrar</button>
+        </div>
+        
+        <div id="popup3" class="popup">
+          <img src="https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif" alt="Ayuda Título" onclick="toggleZoom('popup3')"><br>
+          <button class="popup-close" onclick="cerrarPopup('popup3')">Cerrar</button>
+        </div>
+        
+        
+        <script>
+          function toggleZoom(id) {
+  const img = document.querySelector(`#${id} img`);
+  img.classList.toggle('zoomed'); // Cambia el tamaño del gif al hacer clic
+}
+
+          function mostrarPopup(id) {
+            document.getElementById(id).style.display = 'block';
+          }
+        
+          function cerrarPopup(id) {
+            document.getElementById(id).style.display = 'none';
+          }
+        </script>
+        
         <div class="pass-settingsBUY">
           <label class="titleBUY" style="color: white;">Tu pixel será gratuito hasta agotar existencias, podrás decidir comprarlo, para mantenerlo de manera permanente.</label>
           <ul class="optionsBUY">
@@ -222,6 +318,10 @@
   });
   </script>
 
+
+
+<!--GRID NO TOCAR XD-->
+
     <div class="grid-container">
       <div class="grid" id="pixelGrid"></div>
     </div>
@@ -233,8 +333,8 @@
   <footer>
     <div class="footer-content">
       <div class="footer-links">
-        <a href="#">Inicio</a>
         <a href="https://sites.google.com/view/negossolutions">NEGOS</a>
+        <a href="#">Vender</a>
         <a href="#" id="openFreePopup" class="animated-gradient-text">FREE</a>
         <a href="#">Contacto</a>
       </div>
