@@ -26,7 +26,7 @@
       <div class="buy-container">
         <button class="btn-buy">
           <i class="fas fa-shopping-cart btn-icon"></i>
-          Solicitar píxel
+          Comprar píxel
         </button>
       </div>
     </div>
@@ -214,26 +214,24 @@
         
         <!-- Popups -->
         <div id="popup1" class="popup">
-          <img src="https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif" alt="Ayuda URL de Pixel" onclick="toggleZoom('popup1')"><br>
+          <img src="https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif" alt="Ayuda URL de Pixel">
+          <br>
           <button class="popup-close" onclick="cerrarPopup('popup1')">Cerrar</button>
         </div>
         
         <div id="popup2" class="popup">
-          <img src="https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif" alt="Ayuda Imagen" onclick="toggleZoom('popup2')"><br>
+          <img src="https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif" alt="Ayuda Imagen">
+          <br>
           <button class="popup-close" onclick="cerrarPopup('popup2')">Cerrar</button>
         </div>
         
         <div id="popup3" class="popup">
-          <img src="https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif" alt="Ayuda Título" onclick="toggleZoom('popup3')"><br>
+          <img src="https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif" alt="Ayuda Título">
+          <br>
           <button class="popup-close" onclick="cerrarPopup('popup3')">Cerrar</button>
         </div>
         
-        
         <script>
-          function toggleZoom(id) {
-  const img = document.querySelector(`#${id} img`);
-  img.classList.toggle('zoomed'); // Cambia el tamaño del gif al hacer clic
-}
 
           function mostrarPopup(id) {
             document.getElementById(id).style.display = 'block';
@@ -317,10 +315,6 @@
     }
   });
   </script>
-
-
-
-<!--GRID NO TOCAR XD-->
 
     <div class="grid-container">
       <div class="grid" id="pixelGrid"></div>
