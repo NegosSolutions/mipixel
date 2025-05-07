@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css">
   <link rel="icon" href="logo.png">
+  <script src="https://www.paypal.com/sdk/js?client-id=AQcm1-czOk3jXZ7miCBbk310M-3ocX9MPJTsmNoMZuELFvOMO-XgAMqIVFB_81j5v3xvpBKUQDzDHLkZ&currency=USD"></script>
 </head>
 <body>
   <header>
@@ -41,92 +42,98 @@
       <p style="color: white;">Comprar Pixel</p>
 
       <!-- FORMULARIO DIVIDIDO EN DOS PASOS -->
-      <form action="https://formspree.io/f/mgvozdrl" method="POST" class="wrapperBUY">
-        
-        <!-- PASO 1 -->
-        <div id="form-step-1">
-          <label class="titleBUY" for="email" style="color: white;">Correo electrónico</label>
-          <div class="input-boxBUY">
-            <input type="email" id="email" name="email" required placeholder="tucorreo@example.com" style="color: gray;">
-          </div>
+<form action="https://formspree.io/f/mgvozdrl" method="POST" class="wrapperBUY">
+  
+  <!-- INPUT OCULTO PARA EL PRECIO -->
+  <input type="hidden" id="precioFinal" name="precioFinal" value="1">
 
-          <div style="display: flex; gap: 10px;">
-            <div>
-              <label class="titleBUY" for="altura" style="color: white; text-align: center;">Altura</label>
-              <input type="number" id="altura" name="altura" value="1" style="color: gray;" oninput="calcularPrecio()">
-            </div>
-            <div>
-              <label class="titleBUY" for="largo" style="color: white; text-align: center;">Largo</label>
-              <input type="number" id="largo" name="largo" value="1" style="color: gray;" oninput="calcularPrecio()">
-            </div>
-          </div>
-          <p id="resultado" style="color: white; margin-top: 10px; text-align: center;"></p>
+  <!-- PASO 1 -->
+  <div id="form-step-1">
+    <label class="titleBUY" for="email" style="color: white;">Correo electrónico</label>
+    <div class="input-boxBUY">
+      <input type="email" id="email" name="email" required placeholder="tucorreo@example.com" style="color: gray;">
+    </div>
 
-          <button type="button" class="generate-btnBUY" onclick="siguientePaso()">Siguiente</button>
-        </div>
+    <div style="display: flex; gap: 10px;">
+      <div>
+        <label class="titleBUY" for="altura" style="color: white; text-align: center;">Altura</label>
+        <input type="number" id="altura" name="altura" value="1" style="color: gray;" oninput="calcularPrecio()">
+      </div>
+      <div>
+        <label class="titleBUY" for="largo" style="color: white; text-align: center;">Largo</label>
+        <input type="number" id="largo" name="largo" value="1" style="color: gray;" oninput="calcularPrecio()">
+      </div>
+    </div>
+    <p id="resultado" style="color: white; margin-top: 10px; text-align: center;"></p>
+    <label class="titleBUY" for="url" style="color:white;">
+      Link de pixel
+      <button type="button" class="help-button" onclick="mostrarPopup('popup1')">?</button>
+    </label>
+    <div class="input-boxBUY">
+      <input type="url" id="url" name="url" required placeholder="http://www.example.com" style="color: grey;">
+    </div>
 
-        <!-- PASO 2 (INICIALMENTE OCULTO) -->
-        <div id="form-step-2" style="display: none;">
-          <!-- Link de pixel -->
-          <label class="titleBUY" for="url" style="color:white;">
-            Link de pixel
-            <button type="button" class="help-button" onclick="mostrarPopup('popup1')">?</button>
+    <!-- Url imagen -->
+    <label class="titleBUY" for="img" style="color:white;">
+      Url de imagen
+      <button type="button" class="help-button" onclick="mostrarPopup('popup2')">?</button>
+    </label>
+    <div class="input-boxBUY">
+      <input type="url" id="img" name="img" required placeholder="http://www.example.com/imagen1.jpg" style="color: grey;">
+    </div>
+
+    <!-- Título -->
+    <label class="titleBUY" for="text" style="color:white;">
+      Título de pixel
+      <button type="button" class="help-button" onclick="mostrarPopup('popup3')">?</button>
+    </label>
+    <div class="input-boxBUY">
+      <input type="text" id="text" name="text" required placeholder="Pixel 1" style="color: grey;">
+    </div>
+
+    <button type="button" class="generate-btnBUY" onclick="siguientePaso()">Siguiente</button>
+  </div>
+
+  <!-- PASO 2 (INICIALMENTE OCULTO) -->
+  <div id="form-step-2" style="display: none;">
+    <!-- Link de pixel -->
+   
+
+    <!-- Opciones -->
+    <div class="pass-settingsBUY">
+      <label class="titleBUY" style="color: white;">Configuración de pixel</label>
+      <ul class="optionsBUY">
+        <li class="optionBUY">
+          <input type="checkbox" id="venderpixel" name="venderpixel" value="sí" checked>
+          <label for="venderpixel" style="color: white;">
+            Quiero que mi píxel esté disponible para venta en el futuro.
           </label>
-          <div class="input-boxBUY">
-            <input type="url" id="url" name="url" required placeholder="http://www.example.com" style="color: grey;">
-          </div>
-
-          <!-- Url imagen -->
-          <label class="titleBUY" for="img" style="color:white;">
-            Url de imagen
-            <button type="button" class="help-button" onclick="mostrarPopup('popup2')">?</button>
+        </li>
+        <li class="optionBUY">
+          <input type="checkbox" id="recibirclicks" name="recibirclicks" value="sí">
+          <label for="recibirclicks" style="color: white;">
+            Deseo recibir estadísticas sobre la cantidad de clics que reciba mi píxel.
           </label>
-          <div class="input-boxBUY">
-            <input type="url" id="img" name="img" required placeholder="http://www.example.com/imagen1.jpg" style="color: grey;">
-          </div>
+        </li>
+      </ul>
+    </div>
 
-          <!-- Título -->
-          <label class="titleBUY" for="text" style="color:white;">
-            Título de pixel
-            <button type="button" class="help-button" onclick="mostrarPopup('popup3')">?</button>
-          </label>
-          <div class="input-boxBUY">
-            <input type="text" id="text" name="text" required placeholder="Pixel 1" style="color: grey;">
-          </div>
+    <!-- Botones -->
+    <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+      <button type="button" class="generate-btnBUY" onclick="volverPaso()">Volver</button>
+    </div>
 
-          <!-- Opciones -->
-          <div class="pass-settingsBUY">
-            <label class="titleBUY" style="color: white;">Configuración de pixel</label>
-            <ul class="optionsBUY">
-              <li class="optionBUY">
-                <input type="checkbox" id="venderpixel" name="venderpixel" value="sí" checked>
-                <label for="venderpixel" style="color: white;">
-                  Quiero que mi píxel esté disponible para venta en el futuro.
-                </label>
-              </li>
-              <li class="optionBUY">
-                <input type="checkbox" id="recibirclicks" name="recibirclicks" value="sí">
-                <label for="recibirclicks" style="color: white;">
-                  Deseo recibir estadísticas sobre la cantidad de clics que reciba mi píxel.
-                </label>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Botones -->
-          <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-            <button type="button" class="generate-btnBUY" onclick="volverPaso()">Volver</button>
-            <button type="submit" class="generate-btnBUY">Realizar pago</button>
-          </div>
-        </div>
-      </form>
+    <!-- BOTÓN DE PAYPAL -->
+    <div id="paypal-button-container" style="width: 100%; margin-top: 10px;"></div>
+  </div>
+</form>
     </div>
   </div>
 </div>
 
 <!-- POPUPS DE AYUDA -->
 <div id="popup1" class="popup">
-  <img src="https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif" alt="Ayuda URL de Pixel"><br>
+  <img src="https://mipixel.duckdns.org/link.gif" alt="Ayuda URL de Pixel"><br>
   <button class="popup-close" onclick="cerrarPopup('popup1')">Cerrar</button>
 </div>
 
@@ -440,6 +447,59 @@
         hideTooltip();
       }
     });
+
+    //SCRIPT PAYPAY Y FORMSPREE
+
+    paypal.Buttons({
+  createOrder: function(data, actions) {
+    const altura = parseFloat(document.getElementById("altura").value);
+    const largo = parseFloat(document.getElementById("largo").value);
+    const total = altura * largo;
+
+    return actions.order.create({
+      purchase_units: [{
+        amount: {
+          value: total.toFixed(2)
+        }
+      }]
+    });
+  },
+  onApprove: function(data, actions) {
+    return actions.order.capture().then(function(details) {
+      // Recopilar datos del formulario
+      const datos = {
+        email: document.getElementById('email').value,
+        altura: document.getElementById('altura').value,
+        largo: document.getElementById('largo').value,
+        url: document.getElementById('url').value,
+        img: document.getElementById('img').value,
+        text: document.getElementById('text').value,
+        venderpixel: document.getElementById('venderpixel').checked ? "sí" : "no",
+        recibirclicks: document.getElementById('recibirclicks').checked ? "sí" : "no",
+        precioFinal: (parseFloat(document.getElementById('altura').value) * parseFloat(document.getElementById('largo').value)).toFixed(2),
+        nombreComprador: details.payer.name.given_name + ' ' + details.payer.name.surname,
+        emailComprador: details.payer.email_address
+      };
+
+      // Enviar datos a Formspree
+      fetch("https://formspree.io/f/mgvozdrl", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(datos)
+      }).then(function(response) {
+        if (response.ok) {
+          alert("¡Pago realizado y datos enviados correctamente!");
+        } else {
+          alert("Error al enviar la información del formulario.");
+        }
+      }).catch(function(error) {
+        alert("Error de red al enviar los datos: " + error.message);
+      });
+    });
+  }
+}).render('#paypal-button-container');
   </script>
 </body>
 </html>
