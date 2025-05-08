@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css">
   <link rel="icon" href="logo.png">
-  <script src="https://www.paypal.com/sdk/js?client-id=AUO-nm3DMvCXj0xljwLTjINz3--L7ezYzJnwOt8EWH9Tl5gWNvnqJDI27H33X66M1r5tJyo4b_R37_PL&currency=USD"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AQcm1-czOk3jXZ7miCBbk310M-3ocX9MPJTsmNoMZuELFvOMO-XgAMqIVFB_81j5v3xvpBKUQDzDHLkZ&currency=USD"></script>
 </head>
 <body>
   <header>
@@ -54,14 +54,26 @@
       <input type="email" id="email" name="email" required placeholder="tucorreo@example.com" style="color: gray;">
     </div>
 
-    <div style="display: flex; gap: 10px;">
-      <div>
+    <div class="dimensions-container">
+      <div class="dimension-group">
         <label class="titleBUY" for="altura" style="color: white; text-align: center;">Altura</label>
-        <input type="number" id="altura" name="altura" value="1" style="color: gray;" oninput="calcularPrecio()">
+        <div class="input-number-wrapper">
+          <input type="number" id="altura" name="altura" value="1" min="1" oninput="calcularPrecio()">
+          <div class="input-controls">
+            <div class="control-btn up" onclick="incrementar('altura')">+</div>
+            <div class="control-btn down" onclick="decrementar('altura')">-</div>
+          </div>
+        </div>
       </div>
-      <div>
+      <div class="dimension-group">
         <label class="titleBUY" for="largo" style="color: white; text-align: center;">Largo</label>
-        <input type="number" id="largo" name="largo" value="1" style="color: gray;" oninput="calcularPrecio()">
+        <div class="input-number-wrapper">
+          <input type="number" id="largo" name="largo" value="1" min="1" oninput="calcularPrecio()">
+          <div class="input-controls">
+            <div class="control-btn up" onclick="incrementar('largo')">+</div>
+            <div class="control-btn down" onclick="decrementar('largo')">-</div>
+          </div>
+        </div>
       </div>
     </div>
     <p id="resultado" style="color: white; margin-top: 10px; text-align: center;"></p>
@@ -98,7 +110,6 @@
   <div id="form-step-2" style="display: none;">
     <!-- Link de pixel -->
    
-
     <!-- Opciones -->
     <div class="pass-settingsBUY">
       <label class="titleBUY" style="color: white;">Configuración de pixel</label>
@@ -155,8 +166,23 @@
     if (!isNaN(altura) && !isNaN(largo)) {
       const total = altura * largo;
       resultado.textContent = `$${total}`;
+      // Actualizar el valor del campo oculto para el precio final
+      document.getElementById("precioFinal").value = total;
     } else {
       resultado.textContent = "";
+    }
+  }
+
+  function incrementar(id) {
+    document.getElementById(id).value = parseInt(document.getElementById(id).value) + 1;
+    calcularPrecio();
+  }
+  
+  function decrementar(id) {
+    const input = document.getElementById(id);
+    if (parseInt(input.value) > 1) {
+      input.value = parseInt(input.value) - 1;
+      calcularPrecio();
     }
   }
 
@@ -221,7 +247,6 @@
         </div>
         
         <script>
-
           function mostrarPopup(id) {
             document.getElementById(id).style.display = 'block';
           }
@@ -317,9 +342,9 @@
     <div class="footer-content">
       <div class="footer-links">
         <a href="https://sites.google.com/view/negossolutions">NEGOS</a>
-        <a href="#">Vender</a>
+        <a href="mailto:astrowebpages@gmail.com">Vender pixel</a>
         <a href="#" id="openFreePopup" class="animated-gradient-text">FREE</a>
-        <a href="#">Contacto</a>
+        <a href="mailto:astrowebpages@gmail.com">Ayuda</a>
       </div>
       <p>&copy; 2025 - By <a href="https://negossolutions.github.io/astropages/esindex.html" target="_blank">ᗩᔕ༒尺۝</a></p>
     </div>
@@ -490,7 +515,7 @@
         body: JSON.stringify(datos)
       }).then(function(response) {
         if (response.ok) {
-          alert("¡Pago realizado y datos enviados correctamente!");
+          alert("¡Pago realizado y datos enviados correctamente! Revisa tu bandeja de SPAM");
         } else {
           alert("Error al enviar la información del formulario.");
         }
